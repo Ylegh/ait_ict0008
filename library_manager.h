@@ -3,26 +3,34 @@
 #include <string>
 #include <vector>
 
+// Book class to represent individual books in the library
 class Book {
 private:
-    std::string title;
-    std::string author;
-    std::string ISBN;
-    bool available;
-    std::string date;
+    std::string title;      // Book title
+    std::string author;     // Book author
+    std::string isbn;       // Unique ISBN identifier
+    bool available;         // Availability flag
+    std::string dueDate;    // Date the library added the book
 
 public:
-    Book(const std::string& title, const std::string& author,
-        const std::string& ISBN, bool available, const std::string& dateAdded);
+    // Constructor: initializes a book object with all attributes
+    Book(const std::string& t, const std::string& a, const std::string& i, bool avail, const std::string& due);
 
-    // Member functions
-    void setBookDetails(const std::string& title, const std::string& author,
-        const std::string& ISBN, bool available, const std::string& dateAdded);
-    void displayBookDetails() const;
-    void borrowBook();
-    void returnBook();
-    
-
-    static void sortBookData(std::vector<Book>& books);
+    // Getter for ISBN (used to search books in the library)
     std::string getISBN() const;
+
+    // Getter for availability
+    bool isAvailable() const;
+
+    // Borrow the book: sets availability to false if not already borrowed
+    void borrowBook();
+
+    // Return the book: sets availability to true if previously borrowed
+    void returnBook();
+
+    // Display book details to the console
+    void displayBook() const;
+
+    // Static placeholder for sorting method (to sort vector of books)
+    static void sortBookData(std::vector<Book>& books);
 };
