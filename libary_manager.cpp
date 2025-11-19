@@ -1,40 +1,35 @@
 #include "library_manager.h"
+#include <algorithm>
 
-// Constructor: initializes all member variables using initializer list
+// Constructor
 Book::Book(const std::string& t, const std::string& a, const std::string& i, bool avail, const std::string& due)
     : title(t), author(a), isbn(i), available(avail), dueDate(due) {}
 
-// Getter for ISBN
-std::string Book::getISBN() const { 
-    return isbn; 
-}
+// Getters
+std::string Book::getISBN() const { return isbn; }
+bool Book::isAvailable() const { return available; }
 
-// Getter for availability
-bool Book::isAvailable() const { 
-    return available; 
-}
-
-// Borrow the book
+// Borrow book
 void Book::borrowBook() {
     if (available) {
-        available = false;  // Mark the book as borrowed
+        available = false;
         std::cout << "You have borrowed: " << title << std::endl;
     } else {
-        std::cout << "This book is currently not available." << std::endl;
+        std::cout << "This book is currently not available.\n";
     }
 }
 
-// Return the book
+// Return book
 void Book::returnBook() {
     if (!available) {
-        available = true;  // Mark the book as available again
+        available = true;
         std::cout << "You have returned: " << title << std::endl;
     } else {
-        std::cout << "This book was not borrowed." << std::endl;
+        std::cout << "This book was not borrowed.\n";
     }
 }
 
-// Display book details
+// Display book
 void Book::displayBook() const {
     std::cout << "Title: " << title
               << " | Author: " << author
@@ -43,7 +38,59 @@ void Book::displayBook() const {
               << " | Added Date: " << dueDate << std::endl;
 }
 
-// Placeholder for future sorting method
-void Book::sortBookData(std::vector<Book>& books) {
-    // Sorting logic will be implemented here (Bubble/Insertion/Selection sort)
+// Print library
+void printLibrary(const std::vector<Book>& library, const std::string& methodName) {
+    std::cout << "\nLibrary sorted using " << methodName << ":\n";
+    for (const Book &book : library) {
+        book.displayBook();
+    }
+}
+
+// Insertion Sort
+void insertionSort(std::vector<Book>& library) {
+    int n = library.size();
+    for (int i = 1; i < n; i++) {
+        Book key = library[i];
+        int j = i - 1;
+        while (j >= 0 && library[j].getISBN() > key.getISBN()) {
+            library[j + 1] = library[j];
+            j--;
+        }
+        library[j + 1] = key;
+    }
+}
+
+// Selection Sort
+void selectionSort(std::vector<Book>& library) {
+    int n = library.size();
+    for (int i = 0; i < n - 1; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (library[j].getISBN() < library[minIndex].getISBN()) {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            std::swap(library[i], library[minIndex]);
+        }
+    }
+}
+
+// Bubble Sort
+void bubbleSort(std::vector<Book>& library) {
+    int n = library.size();
+    bool swapped; 
+
+    for (int i = 0; i < n - 1; i++) {
+        swapped = false;
+        for (int j = 0; j < n - 1 - i; j++) {
+            // Compare adjacent elements
+            if (library[j].getISBN() > library[j + 1].getISBN()) {
+                std::swap(library[j], library[j + 1]);
+                swapped = true;
+            }
+        }
+        if (!swapped) 
+            break;
+    }
 }
