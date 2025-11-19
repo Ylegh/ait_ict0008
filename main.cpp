@@ -14,46 +14,56 @@ int main() {
     library.push_back(Book("SPQR", "Mary Beard", "9781631492228", true, "2023-12-10"));
     library.push_back(Book("The Origins of Political Order", "Francis Fukuyama", "9780374533229", false, "2023-11-20"));
 
+    bool exitFlag = false;   // Loop control
     int choice;
     std::string inputISBN;
 
-    // Simple menu: ask user whether to borrow or return a book
-    std::cout << "Library System\n";
-    std::cout << "1. Borrow Book\n";
-    std::cout << "2. Return Book\n";
-    std::cout << "Enter your choice: ";
-    std::cin >> choice;
+    while (!exitFlag) {
+        // Display menu
+        std::cout << "\nLibrary System\n";
+        std::cout << "1. Borrow Book\n";
+        std::cout << "2. Return Book\n";
+        std::cout << "3. Exit\n";
+        std::cout << "4. Display All Books\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
 
-    // Ask user for ISBN of the book
-    std::cout << "Enter the ISBN: ";
-    std::cin >> inputISBN;
-
-    bool found = false;  // Flag to check if book exists in library
-
-    // Loop through the library vector to find the book
-    for (Book &book : library) {
-        if (book.getISBN() == inputISBN) {
-            found = true;
-
-            if (choice == 1) {
-                // Borrow the book
-                book.borrowBook();
-            }
-            else if (choice == 2) {
-                // Return the book
-                book.returnBook();
-            }
-            else {
-                std::cout << "Invalid choice.\n";
-            }
-
-            break;  // Stop loop after finding the book
+        if (choice == 3) {
+            exitFlag = true;
+            std::cout << "Exiting program.\n";
+            continue;
         }
-    }
 
-    // If the book was not found
-    if (!found) {
-        std::cout << "Book not found in the library.\n";
+        if (choice == 4) {
+            std::cout << "\nLibrary Collection:\n";
+            for (const Book &book : library) {
+                book.displayBook();
+            }
+            continue;
+        }
+
+        // For borrow/return, ask for ISBN
+        std::cout << "Enter the ISBN: ";
+        std::cin >> inputISBN;
+
+        bool found = false;
+        for (Book &book : library) {
+            if (book.getISBN() == inputISBN) {
+                found = true;
+                if (choice == 1) {
+                    book.borrowBook();
+                } else if (choice == 2) {
+                    book.returnBook();
+                } else {
+                    std::cout << "Invalid choice.\n";
+                }
+                break; // Stop loop after handling the book
+            }
+        }
+
+        if (!found) {
+            std::cout << "Book not found in the library.\n";
+        }
     }
 
     return 0;
