@@ -30,7 +30,14 @@ public:
 
     // Display book details to the console
     void displayBook() const;
-
-    // Static placeholder for sorting method (to sort vector of books)
-    static void sortBookData(std::vector<Book>& books);
 };
+
+// --- Sorting function declarations ---
+
+void bubbleSort(std::vector<Book>& library);
+void insertionSort(std::vector<Book>& library);
+void selectionSort(std::vector<Book>& library);
+
+// Print function
+void printLibrary(const std::vector<Book>& library, const std::string& methodName);
+
