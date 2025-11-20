@@ -18,11 +18,14 @@ int main() {
     std::string inputISBN;
     std::string lastSortMethod;
 
+    // Main Menu Loop
+
     while (!exitFlag) {
         std::cout << "\nLibrary System Menu:\n";
         std::cout << "1. Borrow Book\n2. Return Book\n3. Display All Books\n4. Sort Library\n5. Exit\n";
         std::cout << "Enter your choice: ";
 
+        // Prevent infinite loop on invalid input
         if (!(std::cin >> choice)) {
             std::cin.clear();
             std::cin.ignore(10000, '\n');
@@ -31,6 +34,7 @@ int main() {
         }
 
         switch (choice) {
+            // Borrow Book 
             case 1:
                 std::cout << "Enter ISBN to borrow (0 to exit): ";
                 std::cin >> inputISBN;
@@ -43,7 +47,7 @@ int main() {
                     if (!found) std::cout << "Book not found.\n";
                 }
                 break;
-
+            // Return Book 
             case 2:
                 std::cout << "Enter ISBN to return (0 to exit): ";
                 std::cin >> inputISBN;
@@ -56,14 +60,14 @@ int main() {
                     if (!found) std::cout << "Book not found.\n";
                 }
                 break;
-
+            // Display Library Collection
             case 3:
                 printLibrary(library, lastSortMethod);
                 break;
-
+            // Sorting Menu
             case 4: {
                 int sortChoice;
-                std::cout << "Choose sorting method:\n1. Bubble Sort\n2. Insertion Sort\n3. Selection Sort\nEnter choice: ";
+                std::cout << "Choose a method to sort the library by ISBN:\n1. Bubble Sort\n2. Insertion Sort\n3. Selection Sort\nEnter choice: ";
                 std::cin >> sortChoice;
 
                 if (sortChoice == 1) { bubbleSort(library); lastSortMethod = "Bubble Sort"; }
@@ -75,12 +79,12 @@ int main() {
                 printLibrary(library, lastSortMethod);
                 break;
             }
-
+            // Exit the program
             case 5:
                 exitFlag = true;
                 std::cout << "Exiting program.\n";
                 break;
-
+            // Invalid menu selection
             default:
                 std::cout << "Invalid choice. Please try again.\n";
                 break;

@@ -1,6 +1,6 @@
 #include "library_manager.h"
 
-// Base Book Class
+// Base Book Class 
 Book::Book(const std::string& t, const std::string& a, const std::string& i,
            bool avail, const std::string& date)
     : title(t), author(a), isbn(i), available(avail), dateAdded(date) {}
@@ -8,6 +8,7 @@ Book::Book(const std::string& t, const std::string& a, const std::string& i,
 std::string Book::getISBN() const { return isbn; }
 bool Book::isAvailable() const { return available; }
 
+// Borrow book if available
 void Book::borrowBook() {
     if (available) {
         available = false;
@@ -17,11 +18,13 @@ void Book::borrowBook() {
     }
 }
 
+// Return book 
 void Book::returnBook() {
     available = true;
     std::cout << title << " has been returned.\n";
 }
 
+// Prints book information
 void Book::displayBook() const {
     std::cout << "Title: " << title
               << " | Author: " << author
@@ -36,6 +39,7 @@ HardcopyBook::HardcopyBook(const std::string& t, const std::string& a, const std
                            bool avail, const std::string& date, const std::string& shelf)
     : Book(t, a, i, avail, date), shelfNumber(shelf) {}
 
+// Override adds shelf number 
 void HardcopyBook::displayBook() const {
     Book::displayBook();
     std::cout << "  Shelf Number: " << shelfNumber << "\n";
@@ -46,12 +50,15 @@ EBook::EBook(const std::string& t, const std::string& a, const std::string& i,
              bool avail, const std::string& date, const std::string& endLicense)
     : Book(t, a, i, avail, date), endOfLicenseDate(endLicense) {}
 
+// Override adds license expiry
 void EBook::displayBook() const {
     Book::displayBook();
     std::cout << "  End-of-License Date: " << endOfLicenseDate << "\n";
 }
 
 // Sorting Algorithmns (Bubble Sort, Insertion Sort, & Selection Sort)
+
+// Bubble Sort repeatedly compares adjacent elements and swaps if needed
 void bubbleSort(std::vector<Book>& library) {
     for (size_t i = 0; i < library.size(); ++i) {
         for (size_t j = 0; j < library.size() - i - 1; ++j) {
@@ -61,6 +68,7 @@ void bubbleSort(std::vector<Book>& library) {
     }
 }
 
+// Insertion Sort builds sorted portion by inserting one book at a time
 void insertionSort(std::vector<Book>& library) {
     for (size_t i = 1; i < library.size(); ++i) {
         Book key = library[i];
@@ -73,6 +81,7 @@ void insertionSort(std::vector<Book>& library) {
     }
 }
 
+// Selection Sort finds minimum element and swaps to correct position
 void selectionSort(std::vector<Book>& library) {
     for (size_t i = 0; i < library.size(); ++i) {
         size_t minIdx = i;
@@ -84,7 +93,7 @@ void selectionSort(std::vector<Book>& library) {
     }
 }
 
-// Print Library
+// Prints library and shows sorting method name (if provided)
 void printLibrary(const std::vector<Book>& library, const std::string& methodName) {
     std::string displayName = methodName.empty() ? "Library Collection" : ("Library sorted using " + methodName);
     std::cout << "\n" << displayName << ":\n";

@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-// Base Book class
+// Base Book class (Parent)
 class Book {
 protected:
     std::string title;
@@ -16,15 +16,19 @@ public:
     Book(const std::string& t, const std::string& a, const std::string& i,
          bool avail, const std::string& date);
 
+    // Basic getters
     std::string getISBN() const;
     bool isAvailable() const;
 
+    // Borrow and return methods
     void borrowBook();
     void returnBook();
-    virtual void displayBook() const; // virtual for polymorphic calls if needed
+
+    // virtual for polymorphic calls so child classes can override
+    virtual void displayBook() const;
 };
 
-// Derived HardcopyBook
+// Derived HardcopyBook Class - adds shelf number attribute
 class HardcopyBook : public Book {
 private:
     std::string shelfNumber;
@@ -34,7 +38,7 @@ public:
     void displayBook() const; // overloaded
 };
 
-// Derived EBook
+// Derived EBook Class - adds end-of-license date for digital books
 class EBook : public Book {
 private:
     std::string endOfLicenseDate;
@@ -44,11 +48,11 @@ public:
     void displayBook() const; // overloaded
 };
 
-// Sorting function declarations
+// Sorting algorithmns sorting by ISBN
 void bubbleSort(std::vector<Book>& library);
 void insertionSort(std::vector<Book>& library);
 void selectionSort(std::vector<Book>& library);
 
 // Function overloading for printing library
-void printLibrary(const std::vector<Book>& library, const std::string& methodName);
-void printLibrary(const std::vector<Book>& library); // no method name
+void printLibrary(const std::vector<Book>& library, const std::string& methodName); // with method name
+void printLibrary(const std::vector<Book>& library); // without method name
