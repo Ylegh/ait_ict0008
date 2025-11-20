@@ -8,6 +8,17 @@ Book::Book(const std::string& t, const std::string& a, const std::string& i,
 std::string Book::getISBN() const { return isbn; }
 bool Book::isAvailable() const { return available; }
 
+// Allow user to set book details
+void Book::setBookDetails(const std::string& t, const std::string& a,
+    const std::string& i, bool avail,
+    const std::string& date) {
+title = t;
+author = a;
+isbn = i;
+available = avail;
+dateAdded = date;
+}
+
 // Borrow book if available
 void Book::borrowBook() {
     if (available) {

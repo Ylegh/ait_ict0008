@@ -15,8 +15,13 @@ protected:
 public:
     Book(const std::string& t, const std::string& a, const std::string& i,
          bool avail, const std::string& date);
-
-    // Basic getters
+    
+    // Set Book Details
+    void setBookDetails(const std::string& t, const std::string& a,
+        const std::string& i, bool avail,
+        const std::string& date);
+    
+        // Basic getters
     std::string getISBN() const;
     bool isAvailable() const;
 
