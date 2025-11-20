@@ -39,10 +39,15 @@ void Book::displayBook() const {
 }
 
 // Print library
-void printLibrary(const std::vector<Book>& library, const std::string& methodName) {
-    std::cout << "\nLibrary sorted using " << methodName << ":\n";
-    for (const Book &book : library) {
-        book.displayBook();
+void printLibrary(const std::vector<Book*>& library, const std::string& methodName) {
+    if (!methodName.empty()) {
+        std::cout << "\nLibrary sorted using " << methodName << ":\n";
+    } else {
+        std::cout << "\nLibrary:\n";
+    }
+
+    for (const auto& book : library) {
+        book->displayBook();
     }
 }
 

@@ -16,7 +16,8 @@ public:
     // Constructor: initializes a book object with all attributes
     Book(const std::string& t, const std::string& a, const std::string& i, bool avail, const std::string& due);
 
-    // Getter for ISBN (used to search books in the library)
+    virtual void displayBook() const;
+    virtual ~Book() {}
     std::string getISBN() const;
 
     // Getter for availability
@@ -27,12 +28,19 @@ public:
 
     // Return the book: sets availability to true if previously borrowed
     void returnBook();
-
-    // Display book details to the console
-    void displayBook() const;
 };
 
-// --- Sorting function declarations ---
+class hardCopyBook : public Book {
+    private:
+        std::string shelfNumber;
+    public: 
+    hardCopyBook(const std::string& t, const std::string& a, const std::string& i, bool avail, const std::string& due, const std::string& shelf);
+
+
+};
+
+
+// Sorting function declarations
 
 void bubbleSort(std::vector<Book>& library);
 void insertionSort(std::vector<Book>& library);

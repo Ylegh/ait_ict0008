@@ -9,9 +9,9 @@ int main() {
     // Populate library with 5 books
     library.push_back(Book("Sapiens", "Yuval Noah Harari", "9780099590088", true, "2023-12-01"));
     library.push_back(Book("Guns, Germs and Steel", "Jared Diamond", "9780393317558", true, "2023-12-02"));
-    library.push_back(Book("The Silk Roads", "Peter Frankopan", "9781408839997", false, "2023-11-15"));
+    library.push_back(Book("The Silk Roads", "Peter Frankopan", "9781408839997", true, "2023-11-15"));
     library.push_back(Book("SPQR", "Mary Beard", "9781631492228", true, "2023-12-10"));
-    library.push_back(Book("The Origins of Political Order", "Francis Fukuyama", "9780374533229", false, "2023-11-20"));
+    library.push_back(Book("The Origins of Political Order", "Francis Fukuyama", "9780374533229", true, "2023-11-20"));
 
     bool exitFlag = false;
     int choice;
