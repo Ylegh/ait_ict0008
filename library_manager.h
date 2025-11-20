@@ -13,31 +13,29 @@ private:
     std::string dueDate;    // Date the library added the book
 
 public:
-    // Constructor: initializes a book object with all attributes
+    // Constructor
     Book(const std::string& t, const std::string& a, const std::string& i, bool avail, const std::string& due);
 
-    // Getter for ISBN (used to search books in the library)
+    // Getter for ISBN
     std::string getISBN() const;
 
     // Getter for availability
     bool isAvailable() const;
 
-    // Borrow the book: sets availability to false if not already borrowed
+    // Borrow the book
     void borrowBook();
 
-    // Return the book: sets availability to true if previously borrowed
+    // Return the book
     void returnBook();
 
-    // Display book details to the console
+    // Display book details
     void displayBook() const;
 };
 
 // Sorting function declarations
-
 void bubbleSort(std::vector<Book>& library);
 void insertionSort(std::vector<Book>& library);
 void selectionSort(std::vector<Book>& library);
 
-// Print function
+// Function to print library
 void printLibrary(const std::vector<Book>& library, const std::string& methodName = "");
-

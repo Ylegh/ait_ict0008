@@ -5,11 +5,17 @@
 Book::Book(const std::string& t, const std::string& a, const std::string& i, bool avail, const std::string& due)
     : title(t), author(a), isbn(i), available(avail), dueDate(due) {}
 
-// Getters
-std::string Book::getISBN() const { return isbn; }
-bool Book::isAvailable() const { return available; }
+// Getter for ISBN
+std::string Book::getISBN() const { 
+    return isbn; 
+}
 
-// Borrow book
+// Getter for availability
+bool Book::isAvailable() const { 
+    return available; 
+}
+
+// Borrow the book
 void Book::borrowBook() {
     if (available) {
         available = false;
@@ -19,7 +25,7 @@ void Book::borrowBook() {
     }
 }
 
-// Return book
+// Return the book
 void Book::returnBook() {
     if (!available) {
         available = true;
@@ -29,7 +35,7 @@ void Book::returnBook() {
     }
 }
 
-// Display book
+// Display book details
 void Book::displayBook() const {
     std::cout << "Title: " << title
               << " | Author: " << author
@@ -38,16 +44,19 @@ void Book::displayBook() const {
               << " | Added Date: " << dueDate << std::endl;
 }
 
-// Print library
-void printLibrary(const std::vector<Book>& library, const std::string& methodName) {
-    if (!methodName.empty()) {
-        std::cout << "\nLibrary sorted using " << methodName << ":\n";
-    } else {
-        std::cout << "\nLibrary:\n";
-    }
-
-    for (const Book &book : library) {
-        book.displayBook();
+// Bubble Sort
+void bubbleSort(std::vector<Book>& library) {
+    int n = library.size();
+    bool swapped;
+    for (int i = 0; i < n - 1; i++) {
+        swapped = false;
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (library[j].getISBN() > library[j + 1].getISBN()) {
+                std::swap(library[j], library[j + 1]);
+                swapped = true;
+            }
+        }
+        if (!swapped) break;
     }
 }
 
@@ -81,21 +90,14 @@ void selectionSort(std::vector<Book>& library) {
     }
 }
 
-// Bubble Sort
-void bubbleSort(std::vector<Book>& library) {
-    int n = library.size();
-    bool swapped; 
+// Print library
+void printLibrary(const std::vector<Book>& library, const std::string& methodName) {
+    if (methodName.empty())
+        std::cout << "\nLibrary Collection:\n";
+    else
+        std::cout << "\nLibrary sorted using " << methodName << ":\n";
 
-    for (int i = 0; i < n - 1; i++) {
-        swapped = false;
-        for (int j = 0; j < n - 1 - i; j++) {
-            // Compare adjacent elements
-            if (library[j].getISBN() > library[j + 1].getISBN()) {
-                std::swap(library[j], library[j + 1]);
-                swapped = true;
-            }
-        }
-        if (!swapped) 
-            break;
+    for (const Book &book : library) {
+        book.displayBook();
     }
 }
