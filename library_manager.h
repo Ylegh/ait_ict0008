@@ -3,33 +3,45 @@
 #include <string>
 #include <vector>
 
-// Book class to represent individual books in the library
+// Base Book class
 class Book {
-private:
-    std::string title;      // Book title
-    std::string author;     // Book author
-    std::string isbn;       // Unique ISBN identifier
-    bool available;         // Availability flag
-    std::string dueDate;    // Date the library added the book
+protected:
+    std::string title;
+    std::string author;
+    std::string isbn;
+    bool available;
+    std::string dateAdded;
 
 public:
-    // Constructor
-    Book(const std::string& t, const std::string& a, const std::string& i, bool avail, const std::string& due);
+    Book(const std::string& t, const std::string& a, const std::string& i,
+         bool avail, const std::string& date);
 
-    // Getter for ISBN
     std::string getISBN() const;
-
-    // Getter for availability
     bool isAvailable() const;
 
-    // Borrow the book
     void borrowBook();
-
-    // Return the book
     void returnBook();
+    virtual void displayBook() const; // virtual for polymorphic calls if needed
+};
 
-    // Display book details
-    void displayBook() const;
+// Derived HardcopyBook
+class HardcopyBook : public Book {
+private:
+    std::string shelfNumber;
+public:
+    HardcopyBook(const std::string& t, const std::string& a, const std::string& i,
+                 bool avail, const std::string& date, const std::string& shelf);
+    void displayBook() const; // overloaded
+};
+
+// Derived EBook
+class EBook : public Book {
+private:
+    std::string endOfLicenseDate;
+public:
+    EBook(const std::string& t, const std::string& a, const std::string& i,
+          bool avail, const std::string& date, const std::string& endLicense);
+    void displayBook() const; // overloaded
 };
 
 // Sorting function declarations
@@ -37,5 +49,6 @@ void bubbleSort(std::vector<Book>& library);
 void insertionSort(std::vector<Book>& library);
 void selectionSort(std::vector<Book>& library);
 
-// Function to print library
-void printLibrary(const std::vector<Book>& library, const std::string& methodName = "");
+// Function overloading for printing library
+void printLibrary(const std::vector<Book>& library, const std::string& methodName);
+void printLibrary(const std::vector<Book>& library); // no method name
