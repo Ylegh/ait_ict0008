@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-// Base Book class (Parent)
+// Base Book class
 class Book {
 protected:
     std::string title;
@@ -13,51 +13,66 @@ protected:
     std::string dateAdded;
 
 public:
-    Book(const std::string& t, const std::string& a, const std::string& i,
-         bool avail, const std::string& date);
-    
-    // Set Book Details
-    void setBookDetails(const std::string& t, const std::string& a,
-        const std::string& i, bool avail,
-        const std::string& date);
-    
-        // Basic getters
+    Book(const std::string& t,
+         const std::string& a,
+         const std::string& i,
+         bool avail,
+         const std::string& date);
+
     std::string getISBN() const;
     bool isAvailable() const;
 
-    // Borrow and return methods
     void borrowBook();
     void returnBook();
 
-    // virtual for polymorphic calls so child classes can override
+    // Virtual so derived classes can extend the output
     virtual void displayBook() const;
+
+    virtual ~Book() = default;
+    void setBookDetails(const std::string& t,
+        const std::string& a,
+        const std::string& i,
+        bool avail,
+        const std::string& date);
 };
 
-// Derived HardcopyBook Class - adds shelf number attribute
+// HardcopyBook: physical book with shelf number
 class HardcopyBook : public Book {
 private:
-    std::string shelfNumber;
+    std::string shelfNumber;   // e.g. "909 HAR"
+
 public:
-    HardcopyBook(const std::string& t, const std::string& a, const std::string& i,
-                 bool avail, const std::string& date, const std::string& shelf);
-    void displayBook() const; // overloaded
+    HardcopyBook(const std::string& t,
+                 const std::string& a,
+                 const std::string& i,
+                 bool avail,
+                 const std::string& date,
+                 const std::string& shelf);
+
+    void displayBook() const override;
 };
 
-// Derived EBook Class - adds end-of-license date for digital books
+// EBook: digital book with end-of-license date
 class EBook : public Book {
 private:
-    std::string endOfLicenseDate;
+    std::string endOfLicenseDate; // e.g. "2026-12-01"
+
 public:
-    EBook(const std::string& t, const std::string& a, const std::string& i,
-          bool avail, const std::string& date, const std::string& endLicense);
-    void displayBook() const; // overloaded
+    EBook(const std::string& t,
+          const std::string& a,
+          const std::string& i,
+          bool avail,
+          const std::string& date,
+          const std::string& endLicense);
+
+    void displayBook() const override;
 };
 
-// Sorting algorithmns sorting by ISBN
-void bubbleSort(std::vector<Book>& library);
-void insertionSort(std::vector<Book>& library);
-void selectionSort(std::vector<Book>& library);
+// Sorting functions (work on vector of pointers)
+void bubbleSort(std::vector<Book*>& library);
+void insertionSort(std::vector<Book*>& library);
+void selectionSort(std::vector<Book*>& library);
 
-// Function overloading for printing library
-void printLibrary(const std::vector<Book>& library, const std::string& methodName); // with method name
-void printLibrary(const std::vector<Book>& library); // without method name
+// Print library. If methodName is empty, just prints "Library Collection".
+void printLibrary(const std::vector<Book*>& library,
+                  const std::string& methodName = "");
